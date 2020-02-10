@@ -126,3 +126,11 @@ def PhaseChange(state_list):
             phaseDiff[i] = phaseDiff[i] - 2
     
     return(phaseDiff,pop11,pop02)
+
+def tensor_to_flat(tensorproduct):
+    #ketベクトル転写用
+    d=tensorproduct.shape[0]
+    onedvector=0
+    for i in range(d):
+        onedvector=onedvector+tensorproduct[i][0][0]*ket(d,i)
+    return onedvector
