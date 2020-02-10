@@ -1,14 +1,14 @@
 import csv
 import os
-import pprint
 import math
 import numpy as np
 import qutip as qt
 import scipy
 from scipy import constants
-from scipy import signal, interpolate
+from scipy import interpolate
 from scipy import integrate
 import sympy as sym
+from datetime import datetime
 
 import matplotlib.pyplot as plt
 import sys
@@ -42,6 +42,7 @@ def MW_shaped(t,args):
 
 #for loop
 count=len(condition_lists)
+date=datetime.now().strftime('%x').replace('/','-')
 
 for condition in tqdm(condition_lists):
     
@@ -92,10 +93,11 @@ for condition in tqdm(condition_lists):
 
     pD,p11,p02=qo.PhaseChange(q_state_list)
     fig=plt.figure(figsize=(6.0,6.0))
+    plt.title("Cc={},θf={}×π_2,J={}[GHz_2π],tg={}[ns]".format(str(Cc),str(the_f),str(round(J0,3)),str(tg)))
     plt.plot(t_list,pD,label='|11> Phase')
     plt.plot(t_list,p11,label='|11> Population')
     plt.plot(t_list,p02,label='|02> Population')
     plt.xlabel('t[ns]')
     plt.legend()
     plt.grid(True)
-    plt.savefig(iDir+"/Pics_furtherlook/Cc="+str(Cc)+"/Cc="+str(Cc)+",θf="+str(the_f)+"×π_2,J="+str(round(J0,3))+"[GHz_2π],tg="+str(tg)+"[ns].jpg")
+    plt.savefig(iDir+"/Pics_furtherlook/Cc={},θf={},J={},tg={}({}).jpg".format(str(Cc),str(the_f),str(round(J0,3)),str(tg),date))
